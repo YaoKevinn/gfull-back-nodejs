@@ -12,14 +12,18 @@ dbConnection();
 // Configurar CORS
 app.use(cors());
 
+// Lectura y Parseo de body
+app.use(express.json());
+
 // Rutas
-app.get("/", (req, res) => {
-    res.json({
-        ok: true,
-        msg: "Hola Mundo",
-    });
-});
+app.use("/api/usuarios", require("./routes/usuarios"));
+app.use("/api/login", require("./routes/auth"));
+
+app.use("/api/products", require("./routes/products"));
+app.use("/api/categories", require("./routes/categories"));
+
+app.use("/api/upload", require("./routes/uploads"));
 
 app.listen(process.env.PORT, () => {
-    console.log("Servidor corriendo en puerto: ", 3000);
+    console.log("Servidor corriendo en puerto: ", process.env.PORT);
 });
